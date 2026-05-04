@@ -3,237 +3,176 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maricota Store — Gerador de Conteúdo</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<title>Maricota Store – Gerador de Conteúdo</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: #FFF8F5; min-height: 100vh; padding: 1.5rem 1rem 3rem; }
-.app { max-width: 480px; margin: 0 auto; }
-.logo { text-align: center; margin-bottom: 2rem; padding-top: 1rem; }
-.logo-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; color: #2C1810; letter-spacing: 0.5px; }
-.logo-sub { font-size: 11px; color: #888; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 4px; }
-.card { background: #fff; border: 1px solid #F0E8E3; border-radius: 16px; padding: 1.25rem; margin-bottom: 1rem; }
-.section-label { font-size: 11px; font-weight: 500; color: #B07060; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.75rem; }
-.upload-area { border: 2px dashed #F0C8B8; border-radius: 12px; padding: 2rem 1rem; text-align: center; cursor: pointer; transition: border-color 0.2s; position: relative; background: #FFF8F5; }
-.upload-area:hover { border-color: #D85A30; }
-.upload-area input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-.upload-icon { font-size: 32px; margin-bottom: 0.5rem; }
-.upload-text { font-size: 14px; color: #888; line-height: 1.5; }
-.upload-text strong { color: #D85A30; font-weight: 500; }
-.preview-img { width: 100%; max-height: 220px; object-fit: contain; border-radius: 12px; display: none; margin-top: 0.75rem; border: 1px solid #F0E8E3; }
-.field-group { margin-bottom: 1rem; }
-.field-label { font-size: 13px; color: #666; margin-bottom: 0.4rem; display: block; }
-.field-input { width: 100%; padding: 10px 14px; border: 1px solid #E8DDD8; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #2C1810; background: #fff; resize: none; transition: border-color 0.2s; }
-.field-input:focus { outline: none; border-color: #D85A30; }
-.tags-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.tag { padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid #E8DDD8; color: #888; background: #fff; transition: all 0.15s; }
-.tag.selected { background: #FAECE7; border-color: #D85A30; color: #993C1D; }
-.formats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.format-item { padding: 10px 12px; border-radius: 10px; border: 1px solid #E8DDD8; cursor: pointer; transition: all 0.15s; background: #fff; }
-.format-item:hover { border-color: #D85A30; }
-.format-item.selected { background: #FAECE7; border-color: #D85A30; }
-.format-name { font-size: 13px; font-weight: 500; color: #2C1810; }
-.format-desc { font-size: 11px; color: #999; margin-top: 2px; }
-.format-item.selected .format-name { color: #993C1D; }
-.btn-generate { width: 100%; padding: 15px; background: #D85A30; color: white; border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.2s; letter-spacing: 0.3px; margin-top: 0.5rem; }
-.btn-generate:hover { background: #993C1D; }
-.btn-generate:disabled { background: #E8DDD8; color: #aaa; cursor: not-allowed; }
-.output-section { display: none; margin-top: 1rem; }
-.output-card { background: #fff; border: 1px solid #F0E8E3; border-radius: 16px; padding: 1.25rem; margin-bottom: 0.75rem; }
-.output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
-.output-type { font-size: 11px; font-weight: 500; color: #D85A30; text-transform: uppercase; letter-spacing: 1px; }
-.copy-btn { font-size: 12px; color: #888; background: none; border: 1px solid #E8DDD8; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
-.copy-btn:hover { border-color: #D85A30; color: #993C1D; }
-.output-text { font-size: 13px; color: #444; line-height: 1.7; white-space: pre-wrap; }
-.loading { text-align: center; padding: 2.5rem; display: none; }
-.loading-text { font-size: 14px; color: #888; margin-top: 1rem; }
-.spinner { width: 36px; height: 36px; border: 2px solid #F0E8E3; border-top-color: #D85A30; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.success-banner { background: #FAECE7; border: 1px solid #F0C8B8; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1rem; font-size: 13px; color: #993C1D; text-align: center; display: none; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #fff5f7; color: #3d1c1c; min-height: 100vh; }
+  header { background: #b5451b; color: white; padding: 20px; text-align: center; }
+  header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: 1px; }
+  header p { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
+  .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+  .card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #b5451b; display: block; margin-bottom: 8px; }
+  input, textarea { width: 100%; padding: 12px; border: 1.5px solid #f0d0c8; border-radius: 10px; font-size: 0.95rem; outline: none; transition: border 0.2s; }
+  input:focus, textarea:focus { border-color: #b5451b; }
+  textarea { resize: vertical; min-height: 80px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { padding: 8px 16px; border-radius: 20px; border: 1.5px solid #f0d0c8; background: white; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; }
+  .chip.active { background: #b5451b; color: white; border-color: #b5451b; }
+  .formatos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .formato { padding: 14px; border-radius: 12px; border: 1.5px solid #f0d0c8; background: white; cursor: pointer; transition: all 0.2s; }
+  .formato.active { background: #fff0ec; border-color: #b5451b; }
+  .formato strong { display: block; font-size: 0.9rem; color: #3d1c1c; }
+  .formato span { font-size: 0.75rem; color: #999; }
+  .btn { width: 100%; padding: 16px; background: #b5451b; color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+  .btn:hover { background: #8f3515; }
+  .btn:disabled { background: #ccc; cursor: not-allowed; }
+  .resultado { display: none; }
+  .output-card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+  .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .output-type { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #b5451b; }
+  .copy-btn { padding: 6px 14px; background: #fff0ec; border: 1px solid #b5451b; color: #b5451b; border-radius: 8px; font-size: 0.8rem; cursor: pointer; }
+  .output-text { font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap; color: #3d1c1c; }
+  .loading { text-align: center; padding: 30px; display: none; }
+  .spinner { width: 36px; height: 36px; border: 3px solid #f0d0c8; border-top-color: #b5451b; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
-<div class="app">
-  <div class="logo">
-    <div class="logo-title">Maricota Store</div>
-    <div class="logo-sub">Gerador de conteúdo</div>
-  </div>
-
+<header>
+  <h1>✨ Maricota Store</h1>
+  <p>Gerador de Conteúdo</p>
+</header>
+<div class="container">
   <div class="card">
-    <div class="section-label">Foto da peça</div>
-    <div class="upload-area" id="uploadArea">
-      <input type="file" accept="image/*" id="photoInput" />
-      <div class="upload-icon">📸</div>
-      <div class="upload-text">Toque para adicionar a foto<br><strong>ou arraste aqui</strong></div>
-    </div>
-    <img class="preview-img" id="previewImg" />
+    <label>Nome da Peça</label>
+    <input type="text" id="nome" placeholder="Ex: Vestido Jardim Encantado">
   </div>
-
   <div class="card">
-    <div class="section-label">Dados da peça</div>
-    <div class="field-group">
-      <label class="field-label">Nome da peça *</label>
-      <input class="field-input" type="text" id="nomePeca" placeholder="Ex: Vestido floral manga longa" />
-    </div>
-    <div class="field-group">
-      <label class="field-label">Tamanhos disponíveis</label>
-      <input class="field-input" type="text" id="tamanhos" placeholder="Ex: 2, 4, 6, 8, 10, 12" />
-    </div>
-    <div class="field-group">
-      <label class="field-label">Preço</label>
-      <input class="field-input" type="text" id="preco" placeholder="Ex: R$ 89,90" />
-    </div>
-    <div class="field-group">
-      <label class="field-label">Descrição (tecido, cor, detalhes)</label>
-      <textarea class="field-input" id="descricao" rows="3" placeholder="Ex: Algodão suave, estampa floral colorida, botões na frente..."></textarea>
-    </div>
+    <label>Preço</label>
+    <input type="text" id="preco" placeholder="Ex: R$ 89,90">
   </div>
-
   <div class="card">
-    <div class="section-label">Tom do conteúdo</div>
-    <div class="tags-row" id="tomTags">
-      <span class="tag selected" data-tom="alegre e afetivo">Alegre e afetivo</span>
-      <span class="tag" data-tom="divertido e animado">Divertido</span>
-      <span class="tag" data-tom="elegante e sofisticado">Elegante</span>
-      <span class="tag" data-tom="fofo e carinhoso">Fofo</span>
-    </div>
+    <label>Tamanhos Disponíveis</label>
+    <input type="text" id="tamanhos" placeholder="Ex: 1, 2, 3, 4, 6, 8">
   </div>
-
   <div class="card">
-    <div class="section-label">Formatos para gerar</div>
-    <div class="formats-grid">
-      <div class="format-item selected" data-format="feed"><div class="format-name">Post feed</div><div class="format-desc">Legenda + CTA</div></div>
-      <div class="format-item selected" data-format="carrossel"><div class="format-name">Carrossel</div><div class="format-desc">6 slides prontos</div></div>
-      <div class="format-item selected" data-format="reels"><div class="format-name">Reels / TikTok</div><div class="format-desc">Roteiro completo</div></div>
-      <div class="format-item selected" data-format="stories"><div class="format-name">Stories</div><div class="format-desc">Sequência de 5</div></div>
-      <div class="format-item selected" data-format="whatsapp"><div class="format-name">WhatsApp</div><div class="format-desc">Lista de transmissão</div></div>
+    <label>Descrição da Peça (opcional)</label>
+    <textarea id="descricao" placeholder="Ex: Vestido floral com babado, tecido leve, perfeito para o verão..."></textarea>
+  </div>
+  <div class="card">
+    <label>Tom do Conteúdo</label>
+    <div class="chips">
+      <div class="chip active" onclick="toggleChip(this,'tom')">Alegre e afetivo</div>
+      <div class="chip" onclick="toggleChip(this,'tom')">Divertido</div>
+      <div class="chip" onclick="toggleChip(this,'tom')">Elegante</div>
+      <div class="chip" onclick="toggleChip(this,'tom')">Fofo</div>
     </div>
   </div>
-
-  <button class="btn-generate" id="btnGerar" onclick="gerarConteudo()">✦ Gerar conteúdo</button>
-
+  <div class="card">
+    <label>Formatos para Gerar</label>
+    <div class="formatos">
+      <div class="formato active" onclick="toggleFormato(this)">
+        <strong>Post feed</strong><span>Legenda + CTA</span>
+      </div>
+      <div class="formato" onclick="toggleFormato(this)">
+        <strong>Carrossel</strong><span>6 slides prontos</span>
+      </div>
+      <div class="formato" onclick="toggleFormato(this)">
+        <strong>Reels / TikTok</strong><span>Roteiro completo</span>
+      </div>
+      <div class="formato" onclick="toggleFormato(this)">
+        <strong>Stories</strong><span>Sequência de 5</span>
+      </div>
+      <div class="formato" onclick="toggleFormato(this)">
+        <strong>WhatsApp</strong><span>Lista de transmissão</span>
+      </div>
+    </div>
+  </div>
+  <button class="btn" onclick="gerar()">✦ Gerar conteúdo</button>
   <div class="loading" id="loading">
     <div class="spinner"></div>
-    <div class="loading-text" id="loadingText">Analisando tendências...</div>
+    <p>Gerando conteúdo com IA...</p>
   </div>
-
-  <div class="success-banner" id="successBanner">✓ Conteúdo gerado com sucesso!</div>
-  <div class="output-section" id="outputSection"></div>
+  <div class="resultado" id="resultado"></div>
 </div>
-
 <script>
-const photoInput = document.getElementById('photoInput');
-const previewImg = document.getElementById('previewImg');
-let photoBase64 = null;
-let tomSelecionado = 'alegre e afetivo';
-let formatosSelecionados = new Set(['feed','carrossel','reels','stories','whatsapp']);
-
-photoInput.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (ev) => {
-    photoBase64 = ev.target.result.split(',')[1];
-    previewImg.src = ev.target.result;
-    previewImg.style.display = 'block';
-  };
-  reader.readAsDataURL(file);
-});
-
-document.querySelectorAll('.tag').forEach(tag => {
-  tag.addEventListener('click', () => {
-    document.querySelectorAll('.tag').forEach(t => t.classList.remove('selected'));
-    tag.classList.add('selected');
-    tomSelecionado = tag.dataset.tom;
-  });
-});
-
-document.querySelectorAll('.format-item').forEach(item => {
-  item.addEventListener('click', () => {
-    item.classList.toggle('selected');
-    const f = item.dataset.format;
-    if (formatosSelecionados.has(f)) formatosSelecionados.delete(f);
-    else formatosSelecionados.add(f);
-  });
-});
-
-const loadingMsgs = ['Analisando tendências...','Criando legendas com carinho...','Montando roteiro dos Reels...','Preparando Stories...','Quase pronto!'];
-
-async function gerarConteudo() {
-  const nome = document.getElementById('nomePeca').value.trim();
-  const tamanhos = document.getElementById('tamanhos').value.trim();
+function toggleChip(el, grupo) {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+function toggleFormato(el) {
+  el.classList.toggle('active');
+}
+async function gerar() {
+  const nome = document.getElementById('nome').value.trim();
   const preco = document.getElementById('preco').value.trim();
+  const tamanhos = document.getElementById('tamanhos').value.trim();
   const descricao = document.getElementById('descricao').value.trim();
-  if (!nome) { alert('Coloque o nome da peça!'); return; }
-  if (formatosSelecionados.size === 0) { alert('Selecione ao menos um formato!'); return; }
-  document.getElementById('btnGerar').disabled = true;
+  const tom = document.querySelector('.chip.active')?.textContent || 'Alegre e afetivo';
+  const formatos = [...document.querySelectorAll('.formato.active')].map(f => f.querySelector('strong').textContent);
+
+  if (!nome || !preco) { alert('Preencha pelo menos o nome e o preço da peça!'); return; }
+  if (formatos.length === 0) { alert('Selecione pelo menos um formato!'); return; }
+
   document.getElementById('loading').style.display = 'block';
-  document.getElementById('outputSection').style.display = 'none';
-  document.getElementById('successBanner').style.display = 'none';
-  let msgIdx = 0;
-  const msgInterval = setInterval(() => {
-    document.getElementById('loadingText').textContent = loadingMsgs[msgIdx % loadingMsgs.length];
-    msgIdx++;
-  }, 2500);
-  const formatInstructions = {
-    feed: 'POST FEED INSTAGRAM: Legenda com até 150 palavras, gatilho emocional de desejo, 3-5 hashtags relevantes, CTA de compra direto.',
-    carrossel: 'CARROSSEL (6 slides): Slide 1: título chamativo. Slides 2-5: benefícios/detalhes da peça. Slide 6: CTA + preço. Cada slide com título e texto curto.',
-    reels: 'ROTEIRO REELS/TIKTOK: Duração 15-30 segundos. Gancho nos primeiros 3 segundos. Cenas descritas em sequência. Texto de tela. Música sugerida.',
-    stories: 'SEQUÊNCIA STORIES (5 stories): Story 1: revelação da peça. Story 2: detalhes. Story 3: enquete. Story 4: benefício. Story 5: CTA com preço.',
-    whatsapp: 'MENSAGEM WHATSAPP: Texto curto para lista de transmissão, máximo 3 parágrafos, emoji estratégico, link no final.'
-  };
-  const formatosDetalhados = Array.from(formatosSelecionados).map(f => formatInstructions[f]).join('\n\n');
-  const prompt = `Você é especialista em marketing de moda infantil. Crie conteúdo de vendas para a Maricota Store, loja de roupas infantis coloridas e alegres.\n\nPEÇA: ${nome}\nTAMANHOS: ${tamanhos || 'não informado'}\nPREÇO: ${preco || 'não informado'}\nDESCRIÇÃO: ${descricao || 'sem descrição'}\nTOM: ${tomSelecionado}\nPÚBLICO: Mães e pais de crianças de 0 a 18 anos\nMARCA: Maricota Store — roupas infantis coloridas, alegres, slogan "Para voar com estilo desde cedo"\n\nGere APENAS os formatos abaixo, separados por === NOME DO FORMATO ===:\n\n${formatosDetalhados}\n\nResponda diretamente com o conteúdo, sem introduções.`;
-  const messages = [];
-  if (photoBase64) {
-    messages.push({ role: 'user', content: [{ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: photoBase64 } }, { type: 'text', text: prompt }]});
-  } else {
-    messages.push({ role: 'user', content: prompt });
-  }
+  document.getElementById('resultado').style.display = 'none';
+  document.querySelector('.btn').disabled = true;
+
+  const prompt = `Você é especialista em marketing para lojas de roupas infantis. 
+Crie conteúdo para a Maricota Store com estas informações:
+- Peça: ${nome}
+- Preço: ${preco}
+- Tamanhos: ${tamanhos || 'não informado'}
+- Descrição: ${descricao || 'não informada'}
+- Tom: ${tom}
+- Slogan da marca: "Para voar com estilo desde cedo"
+
+Gere os seguintes formatos, separando cada um com === NOME_DO_FORMATO ===:
+${formatos.map(f => `=== ${f.toUpperCase()} ===`).join('\n')}
+
+Para cada formato, crie conteúdo completo, pronto para usar, com emojis e linguagem para mães e pais brasileiros.`;
+
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('/api/gerar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages })
+      body: JSON.stringify({ prompt })
     });
-    const data = await res.json();
-    const texto = data.content.map(b => b.text || '').join('');
-    clearInterval(msgInterval);
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('btnGerar').disabled = false;
-    document.getElementById('successBanner').style.display = 'block';
-    renderOutput(texto);
-  } catch(err) {
-    clearInterval(msgInterval);
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('btnGerar').disabled = false;
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Erro desconhecido');
+    mostrarResultado(data.content, formatos);
+  } catch (err) {
     alert('Erro ao gerar conteúdo. Tente novamente.');
+    console.error(err);
+  } finally {
+    document.getElementById('loading').style.display = 'none';
+    document.querySelector('.btn').disabled = false;
   }
 }
 
-const formatoNomes = {'POST FEED INSTAGRAM':'Post feed','CARROSSEL':'Carrossel','ROTEIRO REELS/TIKTOK':'Reels / TikTok','ROTEIRO REELS':'Reels / TikTok','SEQUÊNCIA STORIES':'Stories','STORIES':'Stories','MENSAGEM WHATSAPP':'WhatsApp'};
-
-function renderOutput(texto) {
-  const section = document.getElementById('outputSection');
+function mostrarResultado(texto, formatos) {
+  const section = document.getElementById('resultado');
   section.innerHTML = '';
   section.style.display = 'block';
-  const parts = texto.split(/===\s*(.+?)\s*===/g).filter(s => s.trim());
-  if (parts.length <= 1) {
-    section.innerHTML = `<div class="output-card"><div class="output-text">${texto}</div></div>`;
-    return;
-  }
-  for (let i = 0; i < parts.length - 1; i += 2) {
-    const titulo = parts[i].trim();
-    const conteudo = parts[i+1] ? parts[i+1].trim() : '';
+  const partes = texto.split(/===\s*([^=]+?)\s*===/g).filter(s => s.trim());
+  for (let i = 0; i < partes.length - 1; i += 2) {
+    const titulo = partes[i].trim();
+    const conteudo = partes[i+1] ? partes[i+1].trim() : '';
     if (!conteudo) continue;
-    const nomeAmigavel = formatoNomes[titulo] || titulo;
     const card = document.createElement('div');
     card.className = 'output-card';
-    const safeConteudo = conteudo.replace(/\\/g,'\\\\').replace(/`/g,'\\`');
-    card.innerHTML = `<div class="output-header"><span class="output-type">${nomeAmigavel}</span><button class="copy-btn" onclick="copiar(this, \`${safeConteudo}\`)">Copiar</button></div><div class="output-text">${conteudo}</div>`;
+    card.innerHTML = `
+      <div class="output-header">
+        <span class="output-type">${titulo}</span>
+        <button class="copy-btn" onclick="copiar(this, \`${conteudo.replace(/`/g,'\\`')}\`)">Copiar</button>
+      </div>
+      <div class="output-text">${conteudo}</div>`;
     section.appendChild(card);
   }
-  section.scrollIntoView({ behavior: 'smooth' });
+  if (!section.children.length) {
+    section.innerHTML = `<div class="output-card"><div class="output-text">${texto}</div></div>`;
+  }
 }
 
 function copiar(btn, texto) {
