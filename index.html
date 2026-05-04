@@ -5,48 +5,51 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maricota Store – Gerador de Conteúdo</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', sans-serif; background: #fff5f7; color: #3d1c1c; min-height: 100vh; }
-  header { background: #b5451b; color: white; padding: 20px; text-align: center; }
-  header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: 1px; }
-  header p { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
-  .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-  .card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
-  label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #b5451b; display: block; margin-bottom: 8px; }
-  input, textarea { width: 100%; padding: 12px; border: 1.5px solid #f0d0c8; border-radius: 10px; font-size: 0.95rem; outline: none; transition: border 0.2s; }
-  input:focus, textarea:focus { border-color: #b5451b; }
-  textarea { resize: vertical; min-height: 80px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { padding: 8px 16px; border-radius: 20px; border: 1.5px solid #f0d0c8; background: white; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; }
-  .chip.active { background: #b5451b; color: white; border-color: #b5451b; }
-  .formatos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .formato { padding: 14px; border-radius: 12px; border: 1.5px solid #f0d0c8; background: white; cursor: pointer; transition: all 0.2s; }
-  .formato.active { background: #fff0ec; border-color: #b5451b; }
-  .formato strong { display: block; font-size: 0.9rem; color: #3d1c1c; }
-  .formato span { font-size: 0.75rem; color: #999; }
-  .btn { width: 100%; padding: 16px; background: #b5451b; color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
-  .btn:hover { background: #8f3515; }
-  .btn:disabled { background: #ccc; cursor: not-allowed; }
-  .resultado { display: none; }
-  .output-card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
-  .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .output-type { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #b5451b; }
-  .copy-btn { padding: 6px 14px; background: #fff0ec; border: 1px solid #b5451b; color: #b5451b; border-radius: 8px; font-size: 0.8rem; cursor: pointer; }
-  .output-text { font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap; color: #3d1c1c; }
-  .loading { text-align: center; padding: 30px; display: none; }
-  .spinner { width: 36px; height: 36px; border: 3px solid #f0d0c8; border-top-color: #b5451b; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', sans-serif; background: #fff5f7; color: #3d1c1c; min-height: 100vh; }
+header { background: #b5451b; color: white; padding: 20px; text-align: center; }
+header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: 1px; }
+header p { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
+.container { max-width: 600px; margin: 0 auto; padding: 20px; }
+.card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #b5451b; display: block; margin-bottom: 8px; }
+input { width: 100%; padding: 12px; border: 1.5px solid #f0d0c8; border-radius: 10px; font-size: 0.95rem; outline: none; }
+input:focus { border-color: #b5451b; }
+.upload-area { border: 2px dashed #f0d0c8; border-radius: 12px; padding: 30px; text-align: center; cursor: pointer; background: #fff9f8; }
+.upload-area span { font-size: 2rem; display: block; margin-bottom: 8px; }
+.upload-area p { color: #999; font-size: 0.9rem; }
+#preview { max-width: 100%; max-height: 200px; border-radius: 8px; margin-top: 10px; display: none; }
+.btn { width: 100%; padding: 16px; background: #b5451b; color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 8px; }
+.btn:disabled { background: #ccc; cursor: not-allowed; }
+.loading { text-align: center; padding: 30px; display: none; }
+.spinner { width: 36px; height: 36px; border: 3px solid #f0d0c8; border-top-color: #b5451b; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.resultado { display: none; }
+.output-card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.output-type { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #b5451b; }
+.copy-btn { padding: 6px 14px; background: #fff0ec; border: 1px solid #b5451b; color: #b5451b; border-radius: 8px; font-size: 0.8rem; cursor: pointer; }
+.output-text { font-size: 0.9rem; line-height: 1.7; white-space: pre-wrap; color: #3d1c1c; }
+.arte-section { margin-top: 8px; }
+.arte-section h3 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #b5451b; margin-bottom: 12px; }
+canvas { border-radius: 12px; max-width: 100%; display: block; margin-bottom: 8px; }
+.download-btn { width: 100%; padding: 12px; background: #fff0ec; border: 1.5px solid #b5451b; color: #b5451b; border-radius: 10px; font-size: 0.9rem; font-weight: 700; cursor: pointer; margin-bottom: 8px; }
 </style>
 </head>
 <body>
 <header>
   <h1>✨ Maricota Store</h1>
-  <p>Gerador de Conteúdo</p>
+  <p>Gerador de Conteúdo e Artes</p>
 </header>
 <div class="container">
   <div class="card">
-    <label>Nome da Peça</label>
-    <input type="text" id="nome" placeholder="Ex: Vestido Jardim Encantado">
+    <label>Foto da Peça</label>
+    <div class="upload-area" onclick="document.getElementById('fotoInput').click()">
+      <span>📷</span>
+      <p>Clique para adicionar a foto</p>
+    </div>
+    <img id="preview">
+    <input type="file" id="fotoInput" accept="image/*" style="display:none" onchange="previewFoto(this)">
   </div>
   <div class="card">
     <label>Preço</label>
@@ -56,105 +59,95 @@
     <label>Tamanhos Disponíveis</label>
     <input type="text" id="tamanhos" placeholder="Ex: 1, 2, 3, 4, 6, 8">
   </div>
-  <div class="card">
-    <label>Descrição da Peça (opcional)</label>
-    <textarea id="descricao" placeholder="Ex: Vestido floral com babado, tecido leve, perfeito para o verão..."></textarea>
-  </div>
-  <div class="card">
-    <label>Tom do Conteúdo</label>
-    <div class="chips">
-      <div class="chip active" onclick="toggleChip(this,'tom')">Alegre e afetivo</div>
-      <div class="chip" onclick="toggleChip(this,'tom')">Divertido</div>
-      <div class="chip" onclick="toggleChip(this,'tom')">Elegante</div>
-      <div class="chip" onclick="toggleChip(this,'tom')">Fofo</div>
-    </div>
-  </div>
-  <div class="card">
-    <label>Formatos para Gerar</label>
-    <div class="formatos">
-      <div class="formato active" onclick="toggleFormato(this)">
-        <strong>Post feed</strong><span>Legenda + CTA</span>
-      </div>
-      <div class="formato" onclick="toggleFormato(this)">
-        <strong>Carrossel</strong><span>6 slides prontos</span>
-      </div>
-      <div class="formato" onclick="toggleFormato(this)">
-        <strong>Reels / TikTok</strong><span>Roteiro completo</span>
-      </div>
-      <div class="formato" onclick="toggleFormato(this)">
-        <strong>Stories</strong><span>Sequência de 5</span>
-      </div>
-      <div class="formato" onclick="toggleFormato(this)">
-        <strong>WhatsApp</strong><span>Lista de transmissão</span>
-      </div>
-    </div>
-  </div>
-  <button class="btn" onclick="gerar()">✦ Gerar conteúdo</button>
+  <button class="btn" onclick="gerar()">✦ Gerar conteúdo e artes</button>
   <div class="loading" id="loading">
     <div class="spinner"></div>
-    <p>Gerando conteúdo com IA...</p>
+    <p>Analisando a peça e criando conteúdo...</p>
   </div>
   <div class="resultado" id="resultado"></div>
 </div>
 <script>
-function toggleChip(el, grupo) {
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
+let imagemBase64 = null;
+let imagemTipo = null;
+let imagemEl = new Image();
+
+function previewFoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  imagemTipo = file.type;
+  const reader = new FileReader();
+  reader.onload = e => {
+    imagemBase64 = e.target.result.split(',')[1];
+    imagemEl.src = e.target.result;
+    const preview = document.getElementById('preview');
+    preview.src = e.target.result;
+    preview.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
 }
-function toggleFormato(el) {
-  el.classList.toggle('active');
-}
+
 async function gerar() {
-  const nome = document.getElementById('nome').value.trim();
   const preco = document.getElementById('preco').value.trim();
   const tamanhos = document.getElementById('tamanhos').value.trim();
-  const descricao = document.getElementById('descricao').value.trim();
-  const tom = document.querySelector('.chip.active')?.textContent || 'Alegre e afetivo';
-  const formatos = [...document.querySelectorAll('.formato.active')].map(f => f.querySelector('strong').textContent);
-
-  if (!nome || !preco) { alert('Preencha pelo menos o nome e o preço da peça!'); return; }
-  if (formatos.length === 0) { alert('Selecione pelo menos um formato!'); return; }
+  if (!imagemBase64) { alert('Adicione a foto da peça!'); return; }
+  if (!preco) { alert('Informe o preço!'); return; }
 
   document.getElementById('loading').style.display = 'block';
   document.getElementById('resultado').style.display = 'none';
   document.querySelector('.btn').disabled = true;
 
-  const prompt = `Você é especialista em marketing para lojas de roupas infantis. 
-Crie conteúdo para a Maricota Store com estas informações:
-- Peça: ${nome}
-- Preço: ${preco}
-- Tamanhos: ${tamanhos || 'não informado'}
-- Descrição: ${descricao || 'não informada'}
-- Tom: ${tom}
-- Slogan da marca: "Para voar com estilo desde cedo"
-
-Gere os seguintes formatos, separando cada um com === NOME_DO_FORMATO ===:
-${formatos.map(f => `=== ${f.toUpperCase()} ===`).join('\n')}
-
-Para cada formato, crie conteúdo completo, pronto para usar, com emojis e linguagem para mães e pais brasileiros.`;
-
   try {
     const response = await fetch('/api/gerar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt })
+      body: JSON.stringify({ imagemBase64, imagemTipo, preco, tamanhos })
     });
     const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'Erro desconhecido');
-    mostrarResultado(data.content, formatos);
+    if (!response.ok) throw new Error(data.error || 'Erro');
+    mostrarResultado(data.content, preco, tamanhos);
   } catch (err) {
     alert('Erro ao gerar conteúdo. Tente novamente.');
-    console.error(err);
   } finally {
     document.getElementById('loading').style.display = 'none';
     document.querySelector('.btn').disabled = false;
   }
 }
 
-function mostrarResultado(texto, formatos) {
+function mostrarResultado(texto, preco, tamanhos) {
   const section = document.getElementById('resultado');
   section.innerHTML = '';
   section.style.display = 'block';
+
+  // Artes
+  const arteDiv = document.createElement('div');
+  arteDiv.className = 'card arte-section';
+  arteDiv.innerHTML = '<h3>🎨 Artes prontas para baixar</h3>';
+
+  // Arte Stories (1080x1920)
+  const canvasStory = document.createElement('canvas');
+  canvasStory.width = 1080; canvasStory.height = 1920;
+  gerarArteStory(canvasStory, preco, tamanhos);
+  const btnStory = document.createElement('button');
+  btnStory.className = 'download-btn';
+  btnStory.textContent = '⬇ Baixar Arte Stories';
+  btnStory.onclick = () => baixar(canvasStory, 'story-maricota.png');
+  arteDiv.appendChild(canvasStory);
+  arteDiv.appendChild(btnStory);
+
+  // Arte Feed (1080x1080)
+  const canvasFeed = document.createElement('canvas');
+  canvasFeed.width = 1080; canvasFeed.height = 1080;
+  gerarArteFeed(canvasFeed, preco, tamanhos);
+  const btnFeed = document.createElement('button');
+  btnFeed.className = 'download-btn';
+  btnFeed.textContent = '⬇ Baixar Arte Feed';
+  btnFeed.onclick = () => baixar(canvasFeed, 'feed-maricota.png');
+  arteDiv.appendChild(canvasFeed);
+  arteDiv.appendChild(btnFeed);
+
+  section.appendChild(arteDiv);
+
+  // Textos
   const partes = texto.split(/===\s*([^=]+?)\s*===/g).filter(s => s.trim());
   for (let i = 0; i < partes.length - 1; i += 2) {
     const titulo = partes[i].trim();
@@ -170,9 +163,123 @@ function mostrarResultado(texto, formatos) {
       <div class="output-text">${conteudo}</div>`;
     section.appendChild(card);
   }
-  if (!section.children.length) {
-    section.innerHTML = `<div class="output-card"><div class="output-text">${texto}</div></div>`;
+}
+
+function gerarArteStory(canvas, preco, tamanhos) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+
+  // Fundo gradiente
+  const grad = ctx.createLinearGradient(0, 0, 0, h);
+  grad.addColorStop(0, '#fff5f7');
+  grad.addColorStop(1, '#fde8e0');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+
+  // Foto da peça centralizada
+  if (imagemEl.complete && imagemEl.naturalWidth > 0) {
+    const imgW = w * 0.85;
+    const imgH = h * 0.55;
+    const imgX = (w - imgW) / 2;
+    const imgY = h * 0.12;
+    ctx.save();
+    ctx.beginPath();
+    roundRect(ctx, imgX, imgY, imgW, imgH, 40);
+    ctx.clip();
+    const ratio = Math.min(imgW / imagemEl.naturalWidth, imgH / imagemEl.naturalHeight);
+    const dw = imagemEl.naturalWidth * ratio;
+    const dh = imagemEl.naturalHeight * ratio;
+    ctx.drawImage(imagemEl, imgX + (imgW - dw)/2, imgY + (imgH - dh)/2, dw, dh);
+    ctx.restore();
   }
+
+  // Faixa inferior
+  ctx.fillStyle = '#b5451b';
+  ctx.fillRect(0, h * 0.72, w, h * 0.28);
+
+  // Logo/marca
+  ctx.fillStyle = 'white';
+  ctx.font = 'bold 52px Segoe UI';
+  ctx.textAlign = 'center';
+  ctx.fillText('✨ Maricota Store', w/2, h * 0.78);
+
+  // Preço
+  ctx.font = 'bold 90px Segoe UI';
+  ctx.fillText(preco, w/2, h * 0.87);
+
+  // Tamanhos
+  if (tamanhos) {
+    ctx.font = '42px Segoe UI';
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.fillText('Tamanhos: ' + tamanhos, w/2, h * 0.93);
+  }
+
+  // Slogan
+  ctx.font = 'italic 36px Segoe UI';
+  ctx.fillStyle = 'rgba(255,255,255,0.7)';
+  ctx.fillText('Para voar com estilo desde cedo 🦋', w/2, h * 0.97);
+}
+
+function gerarArteFeed(canvas, preco, tamanhos) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+
+  // Fundo
+  ctx.fillStyle = '#fff5f7';
+  ctx.fillRect(0, 0, w, h);
+
+  // Foto
+  if (imagemEl.complete && imagemEl.naturalWidth > 0) {
+    const imgSize = w * 0.78;
+    const imgX = (w - imgSize) / 2;
+    const imgY = h * 0.06;
+    ctx.save();
+    ctx.beginPath();
+    roundRect(ctx, imgX, imgY, imgSize, imgSize, 40);
+    ctx.clip();
+    const ratio = Math.min(imgSize / imagemEl.naturalWidth, imgSize / imagemEl.naturalHeight);
+    const dw = imagemEl.naturalWidth * ratio;
+    const dh = imagemEl.naturalHeight * ratio;
+    ctx.drawImage(imagemEl, imgX + (imgSize - dw)/2, imgY + (imgSize - dh)/2, dw, dh);
+    ctx.restore();
+  }
+
+  // Faixa inferior
+  ctx.fillStyle = '#b5451b';
+  roundRect(ctx, 40, h * 0.83, w - 80, h * 0.14, 30);
+  ctx.fill();
+
+  ctx.fillStyle = 'white';
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 56px Segoe UI';
+  ctx.fillText('Maricota Store  •  ' + preco, w/2, h * 0.895);
+
+  if (tamanhos) {
+    ctx.font = '38px Segoe UI';
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.fillText('Tamanhos: ' + tamanhos, w/2, h * 0.945);
+  }
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function baixar(canvas, nome) {
+  const link = document.createElement('a');
+  link.download = nome;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
 }
 
 function copiar(btn, texto) {
